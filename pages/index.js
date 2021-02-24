@@ -21,13 +21,13 @@ function Index() {
       </Head>
       <div className="flex flex-col w-full">
         <NavBar />
-        <div className="grid grid-flow-row grid-cols-5 gap-5 w-full mt-5 px-5">
+        <div className="grid grid-flow-row grid-cols-5 lg:gap-5 w-full lg:mt-5 lg:px-5">
 
-          <button type="button" className="col-span-5 hover:opacity-80 border border-gray-100 flex flex-row bg-white py-5 px-6 items-center">
+          <button type="button" className="col-span-5 hover:opacity-80 border border-gray-100 flex flex-row bg-white py-5 px-3 md:px-6 items-center">
             <svg className="h-4 w-4 flex-shrink-0 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
             </svg>
-            <p className="text-gray-400 text-sm ml-3 text-left">Search for any job, title, keywords or company</p>
+            <p className="text-gray-400 text-xs md:text-sm ml-3 text-left">Search for any job, title, keywords or company</p>
           </button>
           <CardItem className="hidden lg:block">
             <h4 className="uppercase text-gray-900 font-medium text-sm">Job Type</h4>
@@ -38,7 +38,7 @@ function Index() {
               <MenuListItem title="Full-time" count="1,987" />
             </div>
           </CardItem>
-          <div className="row-span-4 col-span-5 lg:col-span-4 bg-white">
+          <div className="row-span-4 col-span-5 lg:col-span-4 bg-white p-5">
 
           </div>
           <CardItem className="hidden lg:block">
