@@ -6,7 +6,7 @@ export default function JobGroupItem(props) {
 
     const [jobsShown, setJobsShown] = useState(false)
     return (
-        <>
+        <div className="flex flex-col">
             <button onClick={() => setJobsShown(!jobsShown)} className="focus:outline-none flex flex-row items-center group" type="button">
                 <span className="bg-gray-300 group-hover:bg-blue-400 rounded-lg h-9 w-9 flex items-center justify-center text-lg font-semibold text-white">MA</span>
                 <p className="text-left ml-4 text-gray-700 group-hover:text-gray-900">8 jobs for Fountain Valley Rgnl Hosp And Med Ctr - Euclid</p>
@@ -22,6 +22,6 @@ export default function JobGroupItem(props) {
                     <JobItem />
                 </div>
             </>}
-        </>
+        </div>
     )
 } 
