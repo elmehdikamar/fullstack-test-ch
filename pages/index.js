@@ -1,6 +1,8 @@
 import Head from "next/head"
 import { useEffect } from "react"
 import CardItem from "../components/card_item"
+import Footer from "../components/footer"
+import FooterLink from "../components/footer_link"
 import MenuListItem from "../components/menu_list_item"
 import NavItem from "../components/nav_item"
 import ProfileContainer from "../components/profile_container"
@@ -79,6 +81,8 @@ function Index() {
           </CardItem>
         </div>
       </div>
+
+      <Footer className="mt-5" />
     </>
   )
 
