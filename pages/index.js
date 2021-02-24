@@ -49,6 +49,34 @@ function Index() {
               <MenuListItem title="Full-time" count="1,987" />
             </div>
           </CardItem>
+          <div className="row-span-4 col-span-4 bg-white">
+
+          </div>
+          <CardItem>
+            <h4 className="uppercase text-gray-900 font-medium text-sm">Department</h4>
+            <div className="space-y-3 mt-3 flex flex-col">
+              <MenuListItem title="Cum sociis natoque" count="1,987" />
+              <MenuListItem title="Inmensae subtilitatis, obscuris et malesuada fames." count="1,987" />
+              <MenuListItem title="Me non paenitet nullum " count="1,987" />
+              <MenuListItem title="Idque Caesaris facere voluntate " count="1,987" />
+            </div>
+          </CardItem>
+          <CardItem>
+            <h4 className="uppercase text-gray-900 font-medium text-sm">Work Schedule</h4>
+            <div className="space-y-3 mt-3 flex flex-col">
+              <MenuListItem title="Night shift" count="3,509" />
+              <MenuListItem title="Day shift" count="2,541" />
+            </div>
+          </CardItem>
+          <CardItem>
+            <h4 className="uppercase text-gray-900 font-medium text-sm">Experience</h4>
+            <div className="space-y-3 mt-3 flex flex-col">
+              <MenuListItem title="Intermediate" count="3,509" />
+              <MenuListItem title="Senior" count="2,541" />
+              <MenuListItem title="Internship" count="2,541" />
+              <MenuListItem title="Junior" count="2,541" />
+            </div>
+          </CardItem>
         </div>
       </div>
     </>
