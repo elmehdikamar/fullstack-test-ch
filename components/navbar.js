@@ -19,7 +19,7 @@ export default function NavBar(props) {
     return (
         <>
             <div className="col-span-5 flex flex-row py-5 px-4 bg-white items-center">
-                <button onClick={() => setIsOpen(true)} type="button" className="text-gray-800 md:hidden hover:text-gray-400 mr-4">
+                <button onClick={() => setIsOpen(true)} type="button" className="focus:outline-none text-gray-800 md:hidden hover:text-gray-400 mr-4">
                     <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
