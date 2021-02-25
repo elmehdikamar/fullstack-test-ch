@@ -13,7 +13,7 @@ export default function JobGroupItem(props) {
         <div className="flex flex-col">
             <button onClick={() => setJobsShown(!jobsShown)} className="focus:outline-none flex flex-row items-center group" type="button">
                 <span className="bg-gray-300 group-hover:bg-blue-400 rounded-lg h-9 w-9 flex flex-shrink-0 items-center justify-center text-lg font-semibold text-white">{getInitials(props.jobGroup.name)}</span>
-                <p className="text-left ml-4 text-gray-700 group-hover:text-gray-900">{props.jobGroup.total_jobs_in_hospital} jobs for {props.jobGroup.name}</p>
+                <p className="text-left ml-4 text-gray-700 group-hover:text-gray-900">{props.jobGroup.items.length} job{props.jobGroup.items.length > 1 ? 's' : ''} for {props.jobGroup.name}</p>
             </button>
 
             {jobsShown && <>
