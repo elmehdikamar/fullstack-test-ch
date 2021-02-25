@@ -12,12 +12,13 @@ import ProfileContainer from "../components/profile_container"
 import SortItem from "../components/sort_item"
 import JobService from "../services/job"
 import { ClipLoader } from "react-spinners"
-import { useRouter } from "next/router"
+import { useRouter, withRouter } from "next/router"
 import Router from "next/router"
 import FiltersService from "../services/filters"
 
 function Home() {
   const router = useRouter()
+
 
   const [jobs, setJobs] = useState([])
   const [filters, setFilters] = useState({})
@@ -29,12 +30,13 @@ function Home() {
   }
 
   const toggleFilter = (type, value) => {
-    if (params[type] == value) {
-      const _params = params
+    if (router.query[type] == value) {
+      const _params = router.query
       delete _params[type]
-      setParams({ ...params })
+      Router.push({ query: _params })
+      //setParams({ ...params })
     } else {
-      setParams({ ...params, [type]: value })
+      Router.push({ query: { ...router.query, [type]: value } })
     }
   }
 
@@ -73,9 +75,11 @@ function Home() {
   useEffect(() => {
     document.getElementsByTagName('body')[0].className = "bg-gray-100"
     getFilters()
-    if (Object.keys(router.query).length > 0) {
-      setParams(router.query)
-    } else getAllJobs()
+    //setParams(router.query)
+
+    /*if (Object.keys(router.query).length > 0) {
+      
+    } else getAllJobs()*/
   }, [])
 
   useEffect(() => {
@@ -89,11 +93,18 @@ function Home() {
     //
   }, [router.query])
 
-  useEffect(() => {
+  /*seEffect(() => {
     Router.push({
       query: params
     })
-  }, [params])
+    const queryString = require('query-string');
+    if (Object.keys(params).length > 0) {
+      const stringified = queryString.stringify(params);
+      getJobs(stringified)
+    } else {
+      getAllJobs()
+    }
+  }, [params])*/
 
   return (
     <div className="flex flex-col w-full">
@@ -171,4 +182,4 @@ function Home() {
   )
 
 }
-export default Home
+export default withRouter(Home)
