@@ -1,3 +1,4 @@
+import SortItem from '../../components/sort_item'
 import jobsList from '../../data/jobs'
 
 export default async (req, res) => {
@@ -64,18 +65,15 @@ export default async (req, res) => {
 
   const makeSortedList = (sortedItems) => {
     var newJobList = []
-    sortedItems.reduce(function (res, value) {
-      if (newJobList.some((item) => item.name == value.name)) {
-        newJobList.forEach((item) => {
-          if (item.name == value.name) {
-            item.items.push(value)
-          }
-        })
-      } else {
-        newJobList.push({ name: value.name, items: [value] })
-      }
-
-    })
+    if (sortedItems.length > 0) {
+      sortedItems.map((value) => {
+        if (newJobList.some((item) => item.name === value.name)) {
+          newJobList.find((jobGroup) => jobGroup.name == value.name)?.items.push(value)
+        } else {
+          newJobList.push({ name: value.name, items: [value] })
+        }
+      })
+    }
 
     return newJobList
 
@@ -83,7 +81,9 @@ export default async (req, res) => {
 
   if (req.query.sort_experience) {
     var jobItems = []
+    var count = 0
     jobs.map((job) => {
+      count += job.items.length
       jobItems = [...jobItems, ...job.items]
     })
     jobItems = jobItems.sort(function (a, b) {
@@ -95,25 +95,16 @@ export default async (req, res) => {
       else return 0;
     });
 
+
     jobs = makeSortedList(jobItems)
-
-  }
-
-  if (req.query.sort_location) {
-    var jobItems = []
+    console.log(count)
+    console.log(jobItems.length)
+    var cc = 0
     jobs.map((job) => {
-      jobItems = [...jobItems, ...job.items]
+      cc += job.items.length
     })
-    jobItems = jobItems.sort(function (a, b) {
-      var nameA = a.location.toLowerCase(), nameB = b.location.toLowerCase();
-      if (req.query.sort_location == 'desc' && nameA > nameB)
-        return -1;
-      else if (req.query.sort_location == 'asc' && nameB > nameA)
-        return -1;
-      else return 0;
-    });
+    console.log(cc)
 
-    jobs = makeSortedList(jobItems)
   }
 
   if (req.query.sort_location) {
@@ -129,7 +120,6 @@ export default async (req, res) => {
         return -1;
       else return 0;
     });
-
     jobs = makeSortedList(jobItems)
   }
 
@@ -143,6 +133,40 @@ export default async (req, res) => {
       if (req.query.sort_role == 'desc' && nameA > nameB)
         return -1;
       else if (req.query.sort_role == 'asc' && nameB > nameA)
+        return -1;
+      else return 0;
+    });
+
+    jobs = makeSortedList(jobItems)
+  }
+
+  if (req.query.sort_department) {
+    var jobItems = []
+    jobs.map((job) => {
+      jobItems = [...jobItems, ...job.items]
+    })
+    jobItems = jobItems.sort(function (a, b) {
+      var nameA = a.department[0].toLowerCase(), nameB = b.department[0].toLowerCase();
+      if (req.query.sort_department == 'desc' && nameA > nameB)
+        return -1;
+      else if (req.query.sort_department == 'asc' && nameB > nameA)
+        return -1;
+      else return 0;
+    });
+
+    jobs = makeSortedList(jobItems)
+  }
+
+  if (req.query.sort_education) {
+    var jobItems = []
+    jobs.map((job) => {
+      jobItems = [...jobItems, ...job.items]
+    })
+    jobItems = jobItems.sort(function (a, b) {
+      var nameA = a.required_credentials[0].toLowerCase(), nameB = b.required_credentials[0].toLowerCase();
+      if (req.query.sort_education == 'desc' && nameA > nameB)
+        return -1;
+      else if (req.query.sort_education == 'asc' && nameB > nameA)
         return -1;
       else return 0;
     });

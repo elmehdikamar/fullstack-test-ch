@@ -110,6 +110,14 @@ function Home() {
     }, 300)
   }
 
+  const getCount = (jobs) => {
+    var count = 0
+    jobs.map((val) => {
+      count += val.items.length
+    })
+    return count
+  }
+
   /*seEffect(() => {
     Router.push({
       query: params
@@ -174,7 +182,8 @@ function Home() {
           </Head>
           <div className="flex flex-row items-center">
             <span className="text-gray-600 text-sm flex-1">
-              <strong className="font-semibold">{jobs.length}</strong> job postings</span>
+              <strong className="font-semibold">{
+                getCount(jobs)}</strong> job postings</span>
             <div className="flex-row space-x-5 text-sm text-gray-600 hidden lg:flex">
               <span className="text-gray-400">Sort by</span>
               <SortItem state={router.query.sort_location} onStateChanged={(state) => toggleSorting('sort_location', state)} title="Location" />
