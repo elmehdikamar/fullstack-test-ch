@@ -87,6 +87,19 @@ function Home() {
     //
   }, [router.query])
 
+  const onSearchChanged = (e) => {
+    setTimeout(() => {
+      var txt = e.target.value
+      if (txt.length > 0) {
+        Router.push({ query: { ...router.query, search: txt } })
+      } else {
+        const _params = router.query
+        delete _params.search
+        Router.push({ query: _params })
+      }
+    }, 300)
+  }
+
   /*seEffect(() => {
     Router.push({
       query: params
@@ -105,12 +118,12 @@ function Home() {
       <NavBar />
       <div className="grid grid-flow-row grid-cols-5 lg:gap-5 w-full lg:mt-5 lg:px-5">
 
-        <button type="button" className="col-span-5 hover:opacity-80 border border-gray-100 flex flex-row bg-white py-5 px-3 md:px-6 items-center">
+        <div className="col-span-5 hover:opacity-80 border border-gray-100 flex flex-row bg-white py-5 px-3 md:px-6 items-center">
           <svg className="h-4 w-4 flex-shrink-0 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
-          <p className="text-gray-400 text-xs md:text-sm ml-3 text-left">Search for any job, title, keywords or company</p>
-        </button>
+          <input onChange={onSearchChanged} type="text" placeholder="Search for any job, title, keywords or company" className="focus:outline-none placeholder-gray-400 text-xs md:text-sm ml-3 text-left w-full" />
+        </div>
         <div className="space-y-5 flex flex-col">
           <CardItem className="hidden lg:block">
             <h4 className="uppercase text-gray-900 font-medium text-sm">Job Type</h4>
