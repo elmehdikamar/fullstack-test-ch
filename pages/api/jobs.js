@@ -4,6 +4,7 @@ export default async (req, res) => {
   res.statusCode = 200
   var jobs = jobsList
 
+  // @todo: implement filters and search
   const searchCondition = (item, query) => {
     var found = false
     for (var i = 0; i < Object.keys(item).length; i++) {
@@ -60,7 +61,95 @@ export default async (req, res) => {
       }
     })
   }
-  // @todo: implement filters and search
+
+  const makeSortedList = (sortedItems) => {
+    var newJobList = []
+    sortedItems.reduce(function (res, value) {
+      if (newJobList.some((item) => item.name == value.name)) {
+        newJobList.forEach((item) => {
+          if (item.name == value.name) {
+            item.items.push(value)
+          }
+        })
+      } else {
+        newJobList.push({ name: value.name, items: [value] })
+      }
+
+    })
+
+    return newJobList
+
+  }
+
+  if (req.query.sort_experience) {
+    var jobItems = []
+    jobs.map((job) => {
+      jobItems = [...jobItems, ...job.items]
+    })
+    jobItems = jobItems.sort(function (a, b) {
+      var nameA = a.experience.toLowerCase(), nameB = b.experience.toLowerCase();
+      if (req.query.sort_experience == 'desc' && nameA > nameB)
+        return -1;
+      else if (req.query.sort_experience == 'asc' && nameB > nameA)
+        return -1;
+      else return 0;
+    });
+
+    jobs = makeSortedList(jobItems)
+
+  }
+
+  if (req.query.sort_location) {
+    var jobItems = []
+    jobs.map((job) => {
+      jobItems = [...jobItems, ...job.items]
+    })
+    jobItems = jobItems.sort(function (a, b) {
+      var nameA = a.location.toLowerCase(), nameB = b.location.toLowerCase();
+      if (req.query.sort_location == 'desc' && nameA > nameB)
+        return -1;
+      else if (req.query.sort_location == 'asc' && nameB > nameA)
+        return -1;
+      else return 0;
+    });
+
+    jobs = makeSortedList(jobItems)
+  }
+
+  if (req.query.sort_location) {
+    var jobItems = []
+    jobs.map((job) => {
+      jobItems = [...jobItems, ...job.items]
+    })
+    jobItems = jobItems.sort(function (a, b) {
+      var nameA = a.city.toLowerCase(), nameB = b.city.toLowerCase();
+      if (req.query.sort_location == 'desc' && nameA > nameB)
+        return -1;
+      else if (req.query.sort_location == 'asc' && nameB > nameA)
+        return -1;
+      else return 0;
+    });
+
+    jobs = makeSortedList(jobItems)
+  }
+
+  if (req.query.sort_role) {
+    var jobItems = []
+    jobs.map((job) => {
+      jobItems = [...jobItems, ...job.items]
+    })
+    jobItems = jobItems.sort(function (a, b) {
+      var nameA = a.job_title.toLowerCase(), nameB = b.job_title.toLowerCase();
+      if (req.query.sort_role == 'desc' && nameA > nameB)
+        return -1;
+      else if (req.query.sort_role == 'asc' && nameB > nameA)
+        return -1;
+      else return 0;
+    });
+
+    jobs = makeSortedList(jobItems)
+  }
+
   // @todo: implement automated tests
 
   // this timeout emulates unstable network connection, do not remove this one

@@ -29,6 +29,16 @@ function Home() {
     if (router.query[type] == value) return true
   }
 
+  const toggleSorting = (type, value) => {
+    if (value == null) {
+      const _params = router.query
+      delete _params[type]
+      Router.push({ query: _params })
+    } else {
+      Router.push({ query: { ...router.query, [type]: value } })
+    }
+  }
+
   const toggleFilter = (type, value) => {
     if (router.query[type] == value) {
       const _params = router.query
@@ -167,11 +177,11 @@ function Home() {
               <strong className="font-semibold">{jobs.length}</strong> job postings</span>
             <div className="flex-row space-x-5 text-sm text-gray-600 hidden lg:flex">
               <span className="text-gray-400">Sort by</span>
-              <SortItem title="Location" />
-              <SortItem title="Role" />
-              <SortItem title="Department" />
-              <SortItem title="Education" />
-              <SortItem title="Experience" />
+              <SortItem state={router.query.sort_location} onStateChanged={(state) => toggleSorting('sort_location', state)} title="Location" />
+              <SortItem state={router.query.sort_role} onStateChanged={(state) => toggleSorting('sort_role', state)} title="Role" />
+              <SortItem state={router.query.sort_department} onStateChanged={(state) => toggleSorting('sort_department', state)} title="Department" />
+              <SortItem state={router.query.sort_education} onStateChanged={(state) => toggleSorting('sort_education', state)} title="Education" />
+              <SortItem state={router.query.sort_experience} onStateChanged={(state) => toggleSorting('sort_experience', state)} title="Experience" />
             </div>
           </div>
           <div className="flex flex-col mt-10 space-y-5">
