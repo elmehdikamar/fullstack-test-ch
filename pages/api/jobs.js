@@ -3,6 +3,30 @@ import jobsList from '../../data/jobs'
 export default async (req, res) => {
   res.statusCode = 200
   var jobs = jobsList
+
+  const searchCondition = (item, query) => {
+    var found = false
+    for (var i = 0; i < Object.keys(item).length; i++) {
+      try {
+        if (item[Object.keys(item)[i]].includes(query)) {
+          found = true
+          break
+        }
+      }
+      catch (e) {
+      }
+    }
+    return found;
+  }
+
+  if (req.query.search) {
+    jobs = jobs.filter((job) => {
+      if (job.items.some((item) => searchCondition(item, req.query.search))) {
+        job.items = job.items.filter((item) => searchCondition(item, req.query.search))
+        return true
+      }
+    })
+  }
   if (req.query.type) {
     jobs = jobs.filter((job) => {
       if (job.items.some((item) => item.job_type === req.query.type)) {

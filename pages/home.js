@@ -34,7 +34,6 @@ function Home() {
       const _params = router.query
       delete _params[type]
       Router.push({ query: _params })
-      //setParams({ ...params })
     } else {
       Router.push({ query: { ...router.query, [type]: value } })
     }
@@ -75,11 +74,6 @@ function Home() {
   useEffect(() => {
     document.getElementsByTagName('body')[0].className = "bg-gray-100"
     getFilters()
-    //setParams(router.query)
-
-    /*if (Object.keys(router.query).length > 0) {
-      
-    } else getAllJobs()*/
   }, [])
 
   useEffect(() => {
