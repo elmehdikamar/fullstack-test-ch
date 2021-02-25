@@ -1,4 +1,3 @@
-import SortItem from '../../components/sort_item'
 import jobsList from '../../data/jobs'
 
 export default async (req, res) => {
@@ -173,8 +172,6 @@ export default async (req, res) => {
 
     jobs = makeSortedList(jobItems)
   }
-
-  // @todo: implement automated tests
 
   // this timeout emulates unstable network connection, do not remove this one
   // you need to figure out how to guarantee that client side will render
