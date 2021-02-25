@@ -12,6 +12,7 @@
     "next": "10.0.3",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "react-notifications": "^1.7.2",
     "tailwindcss": "^2.0.3"
   },
   "devDependencies": {

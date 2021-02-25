@@ -1,15 +1,32 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "tailwindcss/tailwind.css";
 import CardItem from "../components/card_item";
 import Footer from "../components/footer";
 import MenuListItem from "../components/menu_list_item";
 import NavBar from "../components/navbar";
 import SortItem from "../components/sort_item";
+import FiltersService from "../services/filters";
+import 'react-notifications/lib/notifications.css';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
+
+
 
 function MyApp({ Component, pageProps }) {
 
+  const [filters, setFilters] = useState({})
+
+  const getFilters = async () => {
+    var response = await FiltersService.getFilters()
+    if (response.isSuccess) {
+      setFilters(response.data)
+    } else {
+      NotificationManager.error(response.errorText)
+    }
+  }
+
   useEffect(() => {
     document.getElementsByTagName('body')[0].className = "bg-gray-100"
+    getFilters()
   }, [])
 
   return (
@@ -27,35 +44,33 @@ function MyApp({ Component, pageProps }) {
           <CardItem className="hidden lg:block">
             <h4 className="uppercase text-gray-900 font-medium text-sm">Job Type</h4>
             <div className="space-y-3 mt-3 flex flex-col">
-              <MenuListItem title="Per-Diem" count="1,987" />
-              <MenuListItem title="Traveler" count="1,987" />
-              <MenuListItem title="Part-time" count="1,987" />
-              <MenuListItem title="Full-time" count="1,987" />
+              {filters.job_type && filters.job_type.map((item) =>
+                <MenuListItem title={item.key} count={item.doc_count} />
+              )}
             </div>
           </CardItem>
           <CardItem className="hidden lg:block">
             <h4 className="uppercase text-gray-900 font-medium text-sm">Department</h4>
             <div className="space-y-3 mt-3 flex flex-col">
-              <MenuListItem title="Cum sociis natoque" count="1,987" />
-              <MenuListItem title="Inmensae subtilitatis, obscuris et malesuada fames." count="1,987" />
-              <MenuListItem title="Me non paenitet nullum " count="1,987" />
-              <MenuListItem title="Idque Caesaris facere voluntate " count="1,987" />
+              {filters.department && filters.department.map((item) =>
+                <MenuListItem title={item.key} count={item.doc_count} />
+              )}
             </div>
           </CardItem>
           <CardItem className="hidden lg:block">
             <h4 className="uppercase text-gray-900 font-medium text-sm">Work Schedule</h4>
             <div className="space-y-3 mt-3 flex flex-col">
-              <MenuListItem title="Night shift" count="3,509" />
-              <MenuListItem title="Day shift" count="2,541" />
+              {filters.work_schedule && filters.work_schedule.map((item) =>
+                <MenuListItem title={item.key} count={item.doc_count} />
+              )}
             </div>
           </CardItem>
           <CardItem className="hidden lg:block">
             <h4 className="uppercase text-gray-900 font-medium text-sm">Experience</h4>
             <div className="space-y-3 mt-3 flex flex-col">
-              <MenuListItem title="Intermediate" count="3,509" />
-              <MenuListItem title="Senior" count="2,541" />
-              <MenuListItem title="Internship" count="2,541" />
-              <MenuListItem title="Junior" count="2,541" />
+              {filters.experience && filters.experience.map((item) =>
+                <MenuListItem title={item.key} count={item.doc_count} />
+              )}
             </div>
           </CardItem>
         </div>
@@ -64,6 +79,7 @@ function MyApp({ Component, pageProps }) {
         </div>
       </div>
       <Footer className="mt-5" />
+      <NotificationContainer />
     </div>
 
   )
