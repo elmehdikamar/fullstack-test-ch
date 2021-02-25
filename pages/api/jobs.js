@@ -10,7 +10,7 @@ export default async (req, res) => {
     var found = false
     for (var i = 0; i < Object.keys(item).length; i++) {
       try {
-        if (item[Object.keys(item)[i]].includes(query)) {
+        if (item[Object.keys(item)[i]].toLowerCase().includes(query.toLowerCase())) {
           found = true
           break
         }
